@@ -4,7 +4,7 @@ package com.tonghang.controller;/**
  *  15:18
  */
 
-import java.io.IOException;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.tonghang.pojo.IsolateLog;
 import com.tonghang.pojo.Label;
 import com.tonghang.pojo.User;
 import com.tonghang.service.AdminService;
@@ -147,8 +148,16 @@ public class AdminController {
      * 处理管理员封号用户的方法
      */
     @RequestMapping(value="{id}/isolate",method=RequestMethod.POST)
-    public void isolateUser(HttpServletResponse response,@PathVariable int id,@RequestParam boolean isolate) throws Exception{
-    	adminService.isolateUser(id,isolate);
+    public void isolateUser(HttpServletResponse response,@PathVariable int id,@RequestParam int userid,@RequestParam String beginisolatetime,@RequestParam String endisolatetime,@RequestParam boolean isolate) throws Exception{
+    	IsolateLog isolatelog = new IsolateLog();
+    	if(isolate){   		
+        	isolatelog.setBegin_time(TimeUtil.timeChange(beginisolatetime));
+        	isolatelog.setEnd_time(TimeUtil.timeChange(endisolatetime));
+        	isolatelog.setUser_id(userid);
+        	isolatelog.setAdmin_id(1);
+        	isolatelog.setOperated_time(new java.util.Date());
+    	}
+    	adminService.isolateUser(id,isolatelog,isolate);
     	response.sendRedirect("/TongHang/user/index") ;
     }
     

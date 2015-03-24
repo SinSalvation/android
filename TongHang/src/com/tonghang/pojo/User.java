@@ -3,6 +3,14 @@ import java.sql.Date;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * 
+ * @author Administrator
+ *用户信息包括：id 账号(number) 用户名(id) 密码(password) email 
+ *电话号(phone) 性别(sex) 生日(birth) 状态(正常或封号) 是否在线(isonline) 
+ *所在省份(provence) 头像(image) 创建时间(created_time) 最近登录时间(last_login_time)
+ *
+ */
 @Component("user")
 public class User{
     private int id;

@@ -98,5 +98,11 @@
 	<update id="change_status" parameterType="com.tonghang.pojo.User">
 		update users set status = #{status} where id = #{id}
 	</update>
+	<insert id="save_isolate_log" parameterType="com.tonghang.pojo.IsolateLog">
+		insert into isolatelog (id,admin_id,user_id,operated_time,begin_time,end_time) value(#{id},#{admin_id},#{user_id},#{operated_time},#{begin_time},#{end_time} )
+	</insert>
+	<select id="get_now_id" resultType="int">
+		select max(id) from isolatelog
+	</select>
 </mapper>
 

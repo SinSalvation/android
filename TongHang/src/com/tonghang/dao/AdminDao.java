@@ -4,6 +4,7 @@ package com.tonghang.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.tonghang.pojo.IsolateLog;
 import com.tonghang.pojo.Label;
 import com.tonghang.pojo.User;
 
@@ -12,5 +13,5 @@ public interface AdminDao{
     public User findUserByAttribute(User u);
     public List<Label> findLabelByUserId(User user);
     public void deleteUser(int id);
-    public void isolateUser(int id,boolean isolate);
+    public void isolateUser(int id,IsolateLog isolatelog,boolean isolate);
 }

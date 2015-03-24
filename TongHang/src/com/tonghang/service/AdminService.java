@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.tonghang.dao.AdminDao;
+import com.tonghang.pojo.IsolateLog;
 import com.tonghang.pojo.Label;
 import com.tonghang.pojo.User;
 
@@ -49,7 +50,7 @@ public class AdminService {
     public void deleteUser(int id){
     	adminDao.deleteUser(id);
     }
-    public void isolateUser(int id,boolean isolate){
-    	adminDao.isolateUser(id,isolate);
+    public void isolateUser(int id,IsolateLog isolatelog,boolean isolate){
+    	adminDao.isolateUser(id,isolatelog,isolate);
     }
 }

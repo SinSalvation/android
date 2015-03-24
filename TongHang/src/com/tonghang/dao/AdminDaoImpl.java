@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.tonghang.pojo.Administrator;
+import com.tonghang.pojo.IsolateLog;
 import com.tonghang.pojo.Label;
 import com.tonghang.pojo.User;
 import com.tonghang.util.DBUtil;
@@ -22,6 +23,7 @@ public class AdminDaoImpl implements AdminDao {
 	 * 通过条件查询用户信息，
 	 * 条件选取的逻辑处理放在配置文件admin-mapping.xml中。
 	 * 该方法还处理了分页逻辑。并将放回的user对象和分页结果分别放在了map中返回前台。
+	 * numbers数组存放的是页码，从1计算，前台便利页码实现页码自动生成效果
 	 */
 	@Override
 	public Map<String,Object> getObjectUser(Map<String,Object> condition) {
@@ -29,7 +31,7 @@ public class AdminDaoImpl implements AdminDao {
 		 SqlSession session = DBUtil.createSession();
 		 Map<String, Object> map = null;
 		try {
-			map = new HashMap<String,Object>();
+			 map = new HashMap<String,Object>();
 			 List<User> users = null;
 			 List<Integer> numbers = new ArrayList<Integer>();
 			 int datas = session.selectOne(Administrator.class.getName()+".count_users",condition);
@@ -117,15 +119,21 @@ public class AdminDaoImpl implements AdminDao {
 	 * 管理员封号指定用户的方法
 	 */
 	@Override
-	public void isolateUser(int id,boolean isolate){
+	public void isolateUser(int id,IsolateLog isolatelog,boolean isolate){
 		SqlSession session = DBUtil.createSession();
+		
 		try {
 			User user = new User();
 			user.setId(id);
 			if(isolate)
 				user.setStatus("封号");
-			else user.setStatus("正常");	
+			else user.setStatus("正常");
+			System.out.println("userid:"+user.getId());
 			session.update(Administrator.class.getName()+".change_status", user);
+			int log_id = session.selectOne(Administrator.class.getName()+".get_now_id");
+			System.out.println("logid:"+log_id);
+			isolatelog.setId(log_id+1);
+			session.insert(Administrator.class.getName()+".save_isolate_log", isolatelog);
 			session.commit();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -134,6 +142,13 @@ public class AdminDaoImpl implements AdminDao {
 		}finally{
 			DBUtil.closeSession(session);
 		}	
+	}
+	
+	public int getCurrentLogId(){
+		SqlSession session = DBUtil.createSession();
+		int log_id = session.selectOne(Administrator.class.getName()+".get_now_id");
+		DBUtil.closeSession(session);
+		return log_id;
 	}
 
 }

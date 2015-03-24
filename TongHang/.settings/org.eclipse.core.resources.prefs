@@ -1,4 +1,4 @@
-#Sun Mar 22 18:33:55 CST 2015
+#Mon Mar 23 19:46:02 CST 2015
 eclipse.preferences.version=1
 encoding//WebRoot/js/bootstrap-datetimepicker.zh-CN.js=UTF-8
 encoding//WebRoot/js/bootstrap.js=UTF-8
@@ -8,6 +8,7 @@ encoding//src/com/tonghang/controller/AdminController.java=UTF-8
 encoding//src/com/tonghang/dao/AdminDao.java=UTF-8
 encoding//src/com/tonghang/dao/AdminDaoImpl.java=UTF-8
 encoding//src/com/tonghang/filter/EncodingFilter.java=UTF-8
+encoding//src/com/tonghang/pojo/IsolateLog.java=UTF-8
 encoding//src/com/tonghang/pojo/Label.java=UTF-8
 encoding//src/com/tonghang/pojo/User.java=UTF-8
 encoding//src/com/tonghang/pojo/admin-mapping.xml=UTF-8

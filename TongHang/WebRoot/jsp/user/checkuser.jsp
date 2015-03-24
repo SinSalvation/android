@@ -144,12 +144,13 @@
                             </table>
                         </div>
                         <form id="delete" method="post" action="<%=basePath%>user/${user.id}/delete"></form>
-                        <form id="isolate" method="post" action="<%=basePath%>user/${user.id}/isolate">
-                        	<input type="hidden" name="isolate" value="true"/>
-                        </form>
                         <form id="deisolate" method="post" action="<%=basePath%>user/${user.id}/isolate">
                         	<input type="hidden" name="isolate" value="false"/>
+                        	<input type="hidden" name="userid" value="${user.id }"/> 
+                        	<input type="hidden" name="beginisolatetime" value=""/>
+                        	<input type="hidden" name="endisolatetime" value=""/>
                         </form>
+                        
                         <div class="row span12">
                         	<div class="btn-group-horizontal">
                             	<c:if test="${user.status eq '封号'}">
@@ -179,17 +180,21 @@
 					       				</div>	
 					       				<hr/>	    
 							            <div class="append">
-							            	<label>选择封号时间段：</label>
-							            	<div class="control-group input-append date form_datetime">
-							            		<span class="modal_lab1">开始：</span>
-								            	<input size="16" type="text" value="" id="begin" name="beginisolatetime" readonly>
-			                                  	<span class="add-on"><i class="icon-th"></i></span>
-							            	</div>
-		                                  	<div class="control-group input-append date form_datetime">
-		                                  		<span class="modal_lab1">结束：</label>
-								            	<input size="16" type="text" value="" id="end" name="beginisolatetime" readonly>
-			                                  	<span class="add-on"><i class="icon-th"></i></span>
-		                                  	</div>
+							            	<form id="isolate" method="post" action="<%=basePath%>user/${user.id}/isolate">
+	                        					<input type="hidden" name="isolate" value="true"/>
+	                        					<input type="hidden" name="userid" value="${user.id }"/>
+								            	<label>选择封号时间段：</label>
+								            	<div class="control-group input-append date form_datetime">
+								            		<span class="modal_lab1">开始：</span>
+									            	<input size="16" type="text" value="" id="begin" name="beginisolatetime" readonly>
+				                                  	<span class="add-on"><i class="icon-th"></i></span>
+								            	</div>
+			                                  	<div class="control-group input-append date form_datetime">
+			                                  		<span class="modal_lab1">结束：</span>
+									            	<input size="16" type="text" value="" id="end" name="endisolatetime" readonly>
+				                                  	<span class="add-on"><i class="icon-th"></i></span>
+			                                  	</div>
+			                                </form>
 							            </div>     
 							        </div>  		
 					            </div>  
@@ -210,24 +215,45 @@
 	$(".form_datetime").datetimepicker({
 		    autoclose: true,
 		    todayBtn: true,
+		    startDate:new Date(),
 		    format: 'yyyy-mm-dd hh:ii:00',
 		    todayHighlight:true,	
 		    language: 'zh-CN'
 	});
 	function submit(whitch){
 		if(whitch=="delete")
-			$("#delete").submit()
+			$("#delete").submit();
 		else if(whitch=='deisolate')
 			$("#deisolate").submit();
-		else $("#isolate").submit();
+		else{
+			var begin = $("#begin").val();
+			var end = $("#end").val();
+			alert("sa:"+$("#hide"))
+			if(validateDate(begin,end))
+				$("#isolate").submit()
+		}
 	}
 	function show(){
-		$(".append").css("visibility","visible")
+		$(".append").css("visibility","visible");
 	}
 	function hide(){
-		$(".append").css("visibility","hidden")
-		$("#begin").val("")
-		$("#end").val("")
+		$(".append").css("visibility","hidden");
+		$("#begin").val("");
+		$("#end").val("");
 	}
+	function validateDate(begin,end){
+		var bstr1 = begin.split(" ");
+		var estr1 = end.split(" ");
+		var bstr2 = bstr1[0].split("-");  
+		var estr2 = estr1[0].split("-");
+		var bstr3 = bstr1[1].split(":");
+		var estr3 = estr1[1].split(":");
+		begin_date = new Date(bstr2[0],bstr2[1],bstr2[2],bstr3[0],bstr3[1]);
+		end_date = new Date(estr2[0],estr2[1],estr2[2],estr3[0],estr3[1]);
+		if(begin_date>end_date){
+			return false;
+		}else return true;
+ 	}
+
 </script>
 </html>
