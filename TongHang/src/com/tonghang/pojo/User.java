@@ -1,5 +1,6 @@
 package com.tonghang.pojo;
 import java.sql.Date;
+import java.util.Calendar;
 
 import org.springframework.stereotype.Component;
 
@@ -27,8 +28,17 @@ public class User{
     private String image;
     private Date created_at;
     private Date last_login_at;
+    private int age;
 
-    public String getIsonline() {
+    public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		
+	}
+
+	public String getIsonline() {
 		return isonline;
 	}
 
@@ -66,6 +76,13 @@ public class User{
 
     public void setBirth(Date birth) {
         this.birth = birth;
+        String date = birth.toString();
+		String[] dates = date.split("-");
+		int birthyear = Integer.parseInt(dates[0]);
+		System.out.println("birthyear:"+birthyear);
+		int nowyear = Calendar.getInstance().get(Calendar.YEAR);
+		System.out.println("nowyear:"+nowyear);
+		this.age = nowyear-birthyear;
     }
 
     public void setProvence(String provence) {
@@ -75,7 +92,6 @@ public class User{
     public void setImage(String image) {
         this.image = image;
     }
-
 
     public int getId() {
         return id;
@@ -108,6 +124,7 @@ public class User{
     }
 
     public String getProvence() {
+
         return provence;
     }
 

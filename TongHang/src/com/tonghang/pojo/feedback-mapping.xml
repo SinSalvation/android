@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tonghang.pojo.FeedBack">
+	<update id="delete_user" parameterType="int">
+		delete from users where id = #{id}
+	</update>
+	<update id="change_status" parameterType="com.tonghang.pojo.User">
+		update users set status = #{status} where id = #{id}
+	</update>
+	<insert id="save_isolate_log" parameterType="com.tonghang.pojo.IsolateLog">
+		insert into isolatelog (id,admin_id,user_id,operated_time,begin_time,end_time) value(#{id},#{admin_id},#{user_id},#{operated_time},#{begin_time},#{end_time} )
+	</insert>
+	
+	<select id="search_feedbackby_condition" resultType="com.tonghang.pojo.FeedBackMessage" parameterType="map">
+		select u.username,u.sex,u.provence,EXTRACT(YEAR from now())-EXTRACT(YEAR from u.birth) age,f.created_at,f.content
+		from feedbacks f 
+		left join users u on f.user_id = u.id
+		<if test="! isall">
+			<where>
+				<if test="email != null and email != ''">
+					u.email = #{email}
+				</if>
+				<if test="begin_time !=null and end_time !=null and begin_time != '' and end_time !=''">
+					f.created_at &gt; #{begin_time} and f.created_at &lt; #{end_time}
+				</if>
+				<if test="sex != null and sex != '' ">
+					u.sex = #{sex}
+				</if>
+				<if test="provence != null and provence != '' ">
+					u.provence = #{provence}
+				</if>
+			</where>
+		</if>
+		limit #{nowpage} , 5
+	</select>
+	<select id="count_feedbacks" resultType="int" parameterType="map">
+		select count(*)
+		from feedbacks f 
+		left join users u on f.user_id = u.id
+		<where>
+				<if test="email != null and email != ''">
+					u.email = #{email}
+				</if>
+				<if test="begin_time !=null and end_time !=null and begin_time != '' and end_time !=''">
+					f.created_at &gt; #{begin_time} and f.created_at &lt; #{end_time}
+				</if>
+				<if test="sex != null and sex != '' ">
+					u.sex = #{sex}
+				</if>
+				<if test="provence != null and provence != '' ">
+					u.provence = #{provence}
+				</if>
+		</where>
+	</select>
+</mapper>
+

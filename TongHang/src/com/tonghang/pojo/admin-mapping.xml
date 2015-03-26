@@ -48,43 +48,43 @@
 			<if test="id !=0">
 				id = #{id}
 			</if>
-			<if test="number !=null">
+			<if test="number !=null and number !='' ">
 				and number = #{number}
 			</if>
-			<if test="username !=null">
+			<if test="username !=null and username != ''">
 				and username = #{username}
 			</if>
-			<if test="email !=null">
+			<if test="email !=null and email !='' ">
 				and email = #{email}
 			</if>
-			<if test="sex !=null">
+			<if test="sex !=null and sex != ''">
 				and sex = #{sex}
 			</if>
-			<if test="birth !=null">
+			<if test="birth !=null and birth != ''">
 				and birth = #{birth}
 			</if>
-			<if test="isonline !=null">
+			<if test="isonline !=null and isonline != ''">
 				and isonline = #{isonline}
 			</if>
-			<if test="phone !=null">
+			<if test="phone !=null and phone != ''">
 				and phone = #{phone}
 			</if>
-			<if test="status !=null">
+			<if test="status !=null and status != ''">
 				and status = #{status}
 			</if>
-			<if test="provence !=null">
+			<if test="provence !=null and provence != ''">
 				and provence = #{provence}
 			</if>
-			<if test="image !=null">
+			<if test="image !=null and image != ''">
 				and image = #{image}
 			</if>
-			<if test="created_at !=null">
+			<if test="created_at !=null  and created_at != '' ">
 				and created_at = #{created_at}
 			</if>
-			<if test="last_login_at !=null">
+			<if test="last_login_at !=null and last_login_at !=''">
 				and last_login_at = #{last_login_at}
 			</if>
-			<if test="password !=null">
+			<if test="password !=null and password != ''">
 				and password = #{password}
 			</if>
 		</where>

@@ -30,7 +30,7 @@ public class AdminDaoImpl implements AdminDao {
 		// TODO Auto-generated method stub
 		 SqlSession session = DBUtil.createSession();
 		 Map<String, Object> map = null;
-		try {
+		 try {
 			 map = new HashMap<String,Object>();
 			 List<User> users = null;
 			 List<Integer> numbers = new ArrayList<Integer>();
@@ -42,6 +42,7 @@ public class AdminDaoImpl implements AdminDao {
 			 users = session.selectList(Administrator.class.getName()+".search_userby_condition",condition);
 			 map.put("users", users);
 			 map.put("pages", numbers);
+			 map.put("allcount", datas);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -72,7 +73,6 @@ public class AdminDaoImpl implements AdminDao {
 		}finally{
 			DBUtil.closeSession(session);
 		}
-		
 		return user;
 	}
 	

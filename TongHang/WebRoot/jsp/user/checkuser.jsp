@@ -35,11 +35,11 @@
             <div class="span12">
                 <div class="span10 row well pricehover">
                     <ul class=" nav nav-tabs">
-                        <li class="active"><a href="#">用户管理</a></li>
+                        <li class="active"><a href="<%=basePath %>user/index">用户管理</a></li>
                         <li><a href="#">管理员设置</a></li>
                         <li><a href="#">数据管理</a></li>
                         <li><a href="#">全局设置</a></li>
-                        <li><a href="#">问题反馈</a></li>
+                        <li><a href="<%=basePath %>feedback/feedbackindex">问题反馈</a></li>
                     </ul>
                     <div class="span2 leftboard">
                     	<ul class="nav nav-tabs nav-stacked">
@@ -147,7 +147,7 @@
                         <form id="deisolate" method="post" action="<%=basePath%>user/${user.id}/isolate">
                         	<input type="hidden" name="isolate" value="false"/>
                         	<input type="hidden" name="userid" value="${user.id }"/> 
-                        	<input type="hidden" name="beginisolatetime" value=""/>
+                        	<input type="hidden" name="beginisolatetime" value="0000"/>
                         	<input type="hidden" name="endisolatetime" value=""/>
                         </form>
                         

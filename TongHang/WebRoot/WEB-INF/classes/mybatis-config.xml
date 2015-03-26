@@ -19,5 +19,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	
 	<mappers>
 		<mapper resource="com/tonghang/pojo/admin-mapping.xml"></mapper>
+		<mapper resource="com/tonghang/pojo/feedback-mapping.xml"></mapper>
 	</mappers>
 </configuration>

@@ -25,6 +25,7 @@ import com.tonghang.pojo.Label;
 import com.tonghang.pojo.User;
 import com.tonghang.service.AdminService;
 import com.tonghang.util.CharsetUtil;
+import com.tonghang.util.TimeUtil;
 
 /**
  * Description : AdminController
@@ -74,7 +75,7 @@ public class AdminController {
 		Map<String,Object> result = adminService.getObjectUser(condition);
         request.setAttribute("pages", (List<Integer>) result.get("pages"));
         request.setAttribute("users",(List<User>) result.get("users"));
-        request.setAttribute("count",((List<User>) result.get("users")).size());
+        request.setAttribute("count",(Integer) result.get("allcount"));
         return "user/index";
     }
     
