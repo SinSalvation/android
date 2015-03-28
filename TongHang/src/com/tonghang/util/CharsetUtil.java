@@ -25,14 +25,12 @@ public class CharsetUtil {
 	}
 	
 	public static String changeCharset(String obj,String charsetname){
-		if(obj!=null)
-			try {
-				return new String(obj.getBytes("iso-8859-1"),charsetname);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return obj;
-			}
-		else return "";
+		try {
+			return new String(obj.getBytes("iso-8859-1"),charsetname);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return obj;
+		}
 	}
 }

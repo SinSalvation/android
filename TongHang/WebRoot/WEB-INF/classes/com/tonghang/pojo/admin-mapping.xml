@@ -6,22 +6,20 @@
 
 	<select id="search_userby_condition" resultType="com.tonghang.pojo.User" parameterType="map">
 		select * from users
-		<if test="! isall">
-			<where>
-				<if test="username != null and username != ''">
-					username = #{username}
-				</if>
-				<if test="sex !=null and sex !='' ">
-					and sex = #{sex}
-				</if>
-				<if test="birth != null and birth != '' ">
-					and birth = #{birth}
-				</if>
-				<if test="provence != null and provence != '' ">
-					and provence = #{provence}
-				</if>
-			</where>
-		</if>
+		<where>
+			<if test="username != null and username != ''">
+				username = #{username}
+			</if>
+			<if test="sex !=null and sex !='' ">
+				and sex = #{sex}
+			</if>
+			<if test="birth != null and birth != '' ">
+				and birth = #{birth}
+			</if>
+			<if test="provence != null and provence != '' ">
+				and provence = #{provence}
+			</if>
+		</where>
 		limit #{nowpage} , 5
 	</select>
 	<select id="count_users" resultType="int" parameterType="map">
@@ -40,69 +38,9 @@
 				and provence = #{provence}
 			</if>
 		</where>
-		
 	</select>
-	<select id="find_userby_attribute" resultType="com.tonghang.pojo.User" parameterType="com.tonghang.pojo.User">
-		select * from users 
-		<where>
-			<if test="id !=0">
-				id = #{id}
-			</if>
-			<if test="number !=null and number !='' ">
-				and number = #{number}
-			</if>
-			<if test="username !=null and username != ''">
-				and username = #{username}
-			</if>
-			<if test="email !=null and email !='' ">
-				and email = #{email}
-			</if>
-			<if test="sex !=null and sex != ''">
-				and sex = #{sex}
-			</if>
-			<if test="birth !=null and birth != ''">
-				and birth = #{birth}
-			</if>
-			<if test="isonline !=null and isonline != ''">
-				and isonline = #{isonline}
-			</if>
-			<if test="phone !=null and phone != ''">
-				and phone = #{phone}
-			</if>
-			<if test="status !=null and status != ''">
-				and status = #{status}
-			</if>
-			<if test="provence !=null and provence != ''">
-				and provence = #{provence}
-			</if>
-			<if test="image !=null and image != ''">
-				and image = #{image}
-			</if>
-			<if test="created_at !=null  and created_at != '' ">
-				and created_at = #{created_at}
-			</if>
-			<if test="last_login_at !=null and last_login_at !=''">
-				and last_login_at = #{last_login_at}
-			</if>
-			<if test="password !=null and password != ''">
-				and password = #{password}
-			</if>
-		</where>
-	</select>
-	<select id="find_labelsby_userid" resultType="com.tonghang.pojo.Label" parameterType="com.tonghang.pojo.User">
-		select * from labels where label_name in (select label_name from user_labels where user_id=#{id})
-	</select>
-	<update id="delete_user" parameterType="int">
-		delete from users where id = #{id}
-	</update>
-	<update id="change_status" parameterType="com.tonghang.pojo.User">
-		update users set status = #{status} where id = #{id}
-	</update>
-	<insert id="save_isolate_log" parameterType="com.tonghang.pojo.IsolateLog">
-		insert into isolatelog (id,admin_id,user_id,operated_time,begin_time,end_time) value(#{id},#{admin_id},#{user_id},#{operated_time},#{begin_time},#{end_time} )
-	</insert>
-	<select id="get_now_id" resultType="int">
-		select max(id) from isolatelog
+	<select id="login" resultType="int" parameterType="map">
+		select count(*) from users where username = #{username} and password = #{password} 
 	</select>
 </mapper>
 

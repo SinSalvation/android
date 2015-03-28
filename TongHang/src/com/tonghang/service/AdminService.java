@@ -1,16 +1,12 @@
 package com.tonghang.service;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
+import com.tonghang.dao.AdminDao;
+import com.tonghang.pojo.User;
 import org.springframework.stereotype.Service;
 
-import com.tonghang.dao.AdminDao;
-import com.tonghang.pojo.IsolateLog;
-import com.tonghang.pojo.Label;
-import com.tonghang.pojo.User;
+import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Description : AdminService
@@ -36,21 +32,5 @@ public class AdminService {
 
     public Map<String,Object> getObjectUser(Map<String,Object> condition){
         return adminDao.getObjectUser(condition);
-    }
-    
-    public String getUserByEmail(String email){
-    	return null;
-    }
-    public User getUserByAttribute(User user){
-    	return adminDao.findUserByAttribute(user);
-    }
-    public List<Label> getLabelsByUser(User user){
-    	return adminDao.findLabelByUserId(user);
-    }
-    public void deleteUser(int id){
-    	adminDao.deleteUser(id);
-    }
-    public void isolateUser(int id,IsolateLog isolatelog,boolean isolate){
-    	adminDao.isolateUser(id,isolatelog,isolate);
     }
 }
